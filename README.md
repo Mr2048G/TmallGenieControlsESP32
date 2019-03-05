@@ -1,32 +1,39 @@
 # 天猫精灵对接AliOS ESP32 设备
 
 ## 1. 介绍
-	   IoT物联网变得越来越火热, 智能家居已经走入家庭. 智能设备,如灯, 开关, 空调, 温湿度传感器, 风扇, 扫地机器人都可以通过智能音箱来控制. 极大方便了我们日常的生活和智能家居控制管理. 
-	   针对IoT市场, Alibaba提供了完善的生态系统, 包括AliOS Things针对终端设备, 含有Link Kit SDK来连接阿里云IoT物联网平台- 智能生活开放平台. 同时允许天猫精灵无缝连接, 通过语音来控制智能设备.
-	   在本文, 我们利用ESP32的平台来跑AliOS, 连接到阿里云IoT物联网平台, 通过阿里巴巴的云智能App来控制灯的开/关, 然后绑定天猫精灵,使得我们能够通过语音来控制灯的开/关和了解灯的状态. 
+  IoT物联网变得越来越火热, 智能家居已经走入家庭. 智能设备,如灯, 开关, 空调, 温湿度传感器, 风扇, 扫地机器人都可以通过智能音箱来控制. 
+极大方便了我们日常的生活和智能家居控制管理. 针对IoT市场, Alibaba提供了完善的生态系统, 包括AliOS Things针对终端设备, 含有Link Kit SDK
+来连接阿里云IoT物联网平台- 智能生活开放平台. 同时允许天猫精灵无缝连接, 通过语音来控制智能设备.
+  在本文, 我们利用ESP32的平台来跑AliOS, 连接到阿里云IoT物联网平台, 通过阿里巴巴的云智能App来控制灯的开/关, 然后绑定天猫精灵,使得我
+们能够通过语音来控制灯的开/关和了解灯的状态. 
      
 ## 2. 安装AliOS Things Studio
-	阿里巴巴提供了详细的文档介绍如何安装开发环境, 下载AliOS Things的代码, 编译示例代码, 下载代码到目标板. ESP32 devkitc是AliOS Things支持一款开发板. 
-	详细介绍可以参看此网址 AliOS Things Studio. 
+  阿里巴巴提供了详细的文档介绍如何安装开发环境, 下载AliOS Things的代码, 编译示例代码, 下载代码到目标板. ESP32 devkitc是AliOS Things
+  支持一款开发板. 详细介绍可以参看此网址 AliOS Things Studio. 
   
 ## 3. Link Kit SDK介绍
-	Link Kit SDK是阿里云提供给设备厂商并通过该SDK将设备安全接入到阿里云IoT物联网平台, 从而设备可以被阿里云IoT平台控制, 同样可以被阿里云的App, 或者天猫精灵控制. 详细介绍可以参看此网址设备接入Link Kit SDK
-	AliOS 已经包含Link Kit SDK, 我们可以直接生成示例代码. 
+  Link Kit SDK是阿里云提供给设备厂商并通过该SDK将设备安全接入到阿里云IoT物联网平台, 从而设备可以被阿里云IoT平台控制, 同样可以被阿里
+云的App, 或者天猫精灵控制. 详细介绍可以参看此网址设备接入Link Kit SDK
+  AliOS 已经包含Link Kit SDK, 我们可以直接生成示例代码. 
   
 ## 4. 编译运行Linkkit的示例代码
-	打开Visual Studio Code, 点击下方工具栏红色方框中的编译选项, 输入linkkitapp选择示例代码按回车, 再输入esp32devkitc选择开发平台再回车. 
-	点击编译按钮生成烧录文件, 再点击烧录. 在这里它会每次提示你选择串口, 如果觉得烦就直接修改\AliOS-Things\build\site_scons\upload\esp32.json, 将"@PORT@"修改成你的串口号比如"COM11". 
-	点击串口工具图标观察输出, 如果有看到设备反复重启, 应该是没有烧录正确, 可以通过ESP32原厂的烧录工具来验证. 
-	对此过程有疑问的可以参考网址AliOS Things Studio
+  打开Visual Studio Code, 点击下方工具栏红色方框中的编译选项, 输入linkkitapp选择示例代码按回车, 再输入esp32devkitc选择开发平台再回车. 
+  点击编译按钮生成烧录文件, 再点击烧录. 在这里它会每次提示你选择串口, 如果觉得烦就直接修改\AliOS-Things\build\site_scons\upload\esp32.json, 
+  将"@PORT@"修改成你的串口号比如"COM11". 
+  点击串口工具图标观察输出, 如果有看到设备反复重启, 应该是没有烧录正确, 可以通过ESP32原厂的烧录工具来验证. 
+  对此过程有疑问的可以参考网址AliOS Things Studio
 
 ## 5. 在阿里云物联网平台建立设备
-	我们需要在阿里云物联网平台建立设备, 生成product key, device key等信息, 并把信息加入到Linkkit的示例代码中, 双方才可以建立连接. 
-	阿里云IoT提供两个云服务平台:生活物联网平台 和 物联网管理平台, 其中生活物联网平台, 提供设备端的SDK, 公版App, 开发门槛较低, 我们这里采用的就是这个平台. 
-	进入生活物联网平台. 
+  我们需要在阿里云物联网平台建立设备, 生成product key, device key等信息, 并把信息加入到Linkkit的示例代码中, 双方才可以建立连接. 
+阿里云IoT提供两个云服务平台:生活物联网平台 和 物联网管理平台, 其中生活物联网平台, 提供设备端的SDK, 公版App, 开发门槛较低, 我们这里采用的就
+是这个平台. 
+  进入生活物联网平台. 
 *  首先创建产品, 我们选择灯的产品, 选项都默认, 这个灯只具有开关功能. 创建完后, 在右侧的基本信息中, 把Product Secret的值拷贝下来.
-*  设备调试, 选择认证模组/芯片里面没有ESP32, 我们选择最后一个品牌,型号不限. 在这里我们可以添加测试设备, 生成 Product Key, Device Name, DeviceSecret等信息用于调试. 
+*  设备调试, 选择认证模组/芯片里面没有ESP32, 我们选择最后一个品牌,型号不限. 在这里我们可以添加测试设备, 生成 Product Key, 
+   Device Name, DeviceSecret等信息用于调试. 
 * 人机交互, 这一步可以下载公版App, 并可生成产品配网二维码, 用App扫描此二维码即可添加设备. 
-* 产品发布, 在这一步可以发布产品, 购买激活码并分配给产品, 我们就可以在App里面找到我们自定义的产品.在这里点击量产管理, 选择量产记录, 找到你已经发布的设备,点击查看, 在弹出窗口下载激活码, 在一个excel文件里包含了Product key, Device Name 和 Device Secret. 
+* 产品发布, 在这一步可以发布产品, 购买激活码并分配给产品, 我们就可以在App里面找到我们自定义的产品.在这里点击量产管理, 选择量产记录, 
+  找到你已经发布的设备,点击查看, 在弹出窗口下载激活码, 在一个excel文件里包含了Product key, Device Name 和 Device Secret. 
 
 ## 6. 定制linkkitapp的代码
 ### a. app\example\linkkitapp\linkkit_example_solo.c
@@ -84,8 +91,10 @@ static int thing_prop_changed(const void *thing_id, const char *property,void *c
 ```
 
 ### b. app\example\linkkitapp\app_entry.c
-		设备端和App有个配网过程, 首先App加入到一个WiFi网络内, 它会把WiFi的SSID和密码通过组播的UDP传输方式发送给设备, 设备加入WiFi后和App建立匹配, 并注册信息到阿里云. 以后App可通过阿里云对灯设备进行控制.
-		设备配网的起始函数是do_awss_active(), 原代码中要等一个按键事件才开始配网. 我们可以添加一个2秒定时器来自动运行配网. 
+  设备端和App有个配网过程, 首先App加入到一个WiFi网络内, 它会把WiFi的SSID和密码通过组播的UDP传输方式发送给设备, 设备加入WiFi后和App
+建立匹配, 并注册信息到阿里云. 以后App可通过阿里云对灯设备进行控制.
+  设备配网的起始函数是do_awss_active(), 原代码中要等一个按键事件才开始配网. 我们可以添加一个2秒定时器来自动运行配网. 
+  
 ```c
 static void app_delayed_action(void *arg)
 {
